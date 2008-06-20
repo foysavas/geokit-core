@@ -3,23 +3,24 @@ require 'rexml/document'
 require 'yaml'
 require 'timeout'
 
-class Inflector
-  class << self
-    def titleize(word)
-      humanize(underscore(word)).gsub(/\b([a-z])/) { $1.capitalize }
-    end
+module Inflector
 
-    def underscore(camel_cased_word)
-      camel_cased_word.to_s.gsub(/::/, '/').
-      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
-      tr("-", "_").
-      downcase
-    end
+  extend self
 
-    def humanize(lower_case_and_underscored_word)
-      lower_case_and_underscored_word.to_s.gsub(/_id$/, "").gsub(/_/, " ").capitalize
-    end
+  def titleize(word)
+    humanize(underscore(word)).gsub(/\b([a-z])/) { $1.capitalize }
+  end
+
+  def underscore(camel_cased_word)
+    camel_cased_word.to_s.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    downcase
+  end
+
+  def humanize(lower_case_and_underscored_word)
+    lower_case_and_underscored_word.to_s.gsub(/_id$/, "").gsub(/_/, " ").capitalize
   end
 end
 
